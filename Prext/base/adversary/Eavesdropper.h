@@ -30,7 +30,7 @@ using namespace std;
 /**
  * Eavesdropper  Demo
  */
-class Eavesdropper : public BaseApplLayer {
+class Eavesdropper : public veins::BaseApplLayer {
 	public:
 		virtual void initialize(int stage);
 		virtual void finish();

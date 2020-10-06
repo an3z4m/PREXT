@@ -29,7 +29,7 @@
 /**
  * Mix-zone RSU
  */
-class MixRSU : public BaseApplLayer {
+class MixRSU : public veins::BaseApplLayer {
 	public:
         ~MixRSU();
 		virtual void initialize(int stage);

@@ -28,13 +28,13 @@
 #include "veins/base/connectionManager/ChannelAccess.h"
 #include <veins/modules/mac/ieee80211p/DemoBaseApplLayerToMac1609_4Interface.h>
 
-using Veins::AnnotationManager;
-using Veins::TraCIMobility;
+using veins::AnnotationManager;
+using veins::TraCIMobility;
 
 /**
  * Small IVC Demo using 11p
  */
-class PrivateSampleApp : public BaseApplLayer
+class PrivateSampleApp : public veins::BaseApplLayer
 {
 public:
     ~PrivateSampleApp();

@@ -19,7 +19,7 @@
 #include "PrivateSampleApp.h"
 #include <veins/modules/Prext/base/PrivBase.h>
 
-using Veins::TraCIMobilityAccess;
+using veins::TraCIMobilityAccess;
 
 Define_Module(PrivateSampleApp);
 PrivateSampleApp::~PrivateSampleApp()
@@ -28,7 +28,7 @@ PrivateSampleApp::~PrivateSampleApp()
 
 void PrivateSampleApp::initialize(int stage)
 {
-    BaseApplLayer::initialize(stage);
+    veins::BaseApplLayer::initialize(stage);
     if (stage == 0)
     {
         traci = TraCIMobilityAccess().get(getParentModule());
@@ -120,7 +120,7 @@ WAVEBeacon *PrivateSampleApp::prepareBeacon()
 }
 void PrivateSampleApp::finish()
 {
-    BaseApplLayer::finish();
+    veins::BaseApplLayer::finish();
 
     cancelAndDelete(sendBeaconEvt);
     recordParametersAsScalars();

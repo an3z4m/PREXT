@@ -17,7 +17,7 @@
 
 #include "CPN.h"
 #include <veins/modules/Prext/base/messages/WAVEBeacon_m.h>
-using Veins::TraCIMobilityAccess;
+using veins::TraCIMobilityAccess;
 
 Define_Module(CPN);
 

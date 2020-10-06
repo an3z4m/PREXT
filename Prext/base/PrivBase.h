@@ -16,7 +16,7 @@ using namespace std;
 //TODO: implement dumpWAVEBeacon as a member function of a derived class of WAVEBeacon
 inline void dumpWAVEBeacon(ostream & out, WAVEBeacon* bsm) {
     out << bsm->getTimestamp().trunc(SimTimeUnit::SIMTIME_MS) << "\t"
-            << bsm->getSenderAddress() << "\t"
+            //<< bsm->getSenderAddress() << "\t"
             << bsm->getSenderPos().x << "\t"
             << bsm->getSenderVel().x << "\t"
             << bsm->getSenderPos().y << "\t"
@@ -26,7 +26,7 @@ inline void dumpWAVEBeacon(ostream & out, WAVEBeacon* bsm) {
             << bsm->getIsEncrypted() << endl;
 }
 enum PrivateApplMessageKinds {
-            SERVICE_PROVIDER = BaseApplLayer::BaseApplMessageKinds::LAST_BASE_APPL_MESSAGE_KIND,
+            SERVICE_PROVIDER = veins::BaseApplLayer::BaseApplMessageKinds::LAST_BASE_APPL_MESSAGE_KIND,
             SEND_BEACON_EVT,
             WAVE_BEACON,
             WAVE_DATA
