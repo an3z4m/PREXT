@@ -17,7 +17,7 @@
 
 #include "BasePrivLayer.h"
 #include "veins/modules/Prext/base/PrivBase.h"
-using Veins::TraCIMobilityAccess;
+using veins::TraCIMobilityAccess;
 
 Define_Module(BasePrivLayer);
 
