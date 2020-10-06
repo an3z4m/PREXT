@@ -22,13 +22,16 @@
 using Veins::TraCIMobilityAccess;
 
 Define_Module(PrivateSampleApp);
-PrivateSampleApp::~PrivateSampleApp() {
+PrivateSampleApp::~PrivateSampleApp()
+{
 }
 
-void PrivateSampleApp::initialize(int stage) {
+void PrivateSampleApp::initialize(int stage)
+{
     BaseApplLayer::initialize(stage);
-	if (stage == 0) {
-		traci = TraCIMobilityAccess().get(getParentModule());
+    if (stage == 0)
+    {
+        traci = TraCIMobilityAccess().get(getParentModule());
 
         myId = getParentModule()->getIndex() + 1; //avoid CarID == 0
 
@@ -37,56 +40,65 @@ void PrivateSampleApp::initialize(int stage) {
         headerLength = par("headerLength");
         dataLength = par("dataLength");
         //simulate asynchronous channel access
-        double offSet = dblrand() * (par("beaconInterval").doubleValue()/2);
-        offSet = offSet + floor(offSet/0.050)*0.050;
+        double offSet = dblrand() * (par("beaconInterval").doubleValue() / 2);
+        offSet = offSet + floor(offSet / 0.050) * 0.050;
         scheduleAt(simTime() + offSet, sendBeaconEvt);
 
         individualOffset = dblrand() * 0.005;
-	}
+    }
 }
-void PrivateSampleApp::handleSelfMsg(cMessage* msg) { // it an event/self-msg that has be called by scheduleAt with certain time
-    switch (msg->getKind()) {
-        case PrivateApplMessageKinds::SEND_BEACON_EVT: {
+void PrivateSampleApp::handleSelfMsg(cMessage *msg)
+{ // it an event/self-msg that has be called by scheduleAt with certain time
+    switch (msg->getKind())
+    {
+    case PrivateApplMessageKinds::SEND_BEACON_EVT:
+    {
 
-            WAVEBeacon* bcn = prepareBeacon();
-            sendDelayedDown(bcn,individualOffset);
+        WAVEBeacon *bcn = prepareBeacon();
+        sendDelayedDown(bcn, individualOffset);
 
-            scheduleAt(simTime() + par("beaconInterval").doubleValue(), sendBeaconEvt);
-            break;
-        }
-        default: {
-            if (msg)
-                EV << "APP: Error: Got Self Message of unknown kind! Name: " << msg->getName() << endl;
-            break;
-        }
+        scheduleAt(simTime() + par("beaconInterval").doubleValue(), sendBeaconEvt);
+        break;
     }
-
+    default:
+    {
+        if (msg)
+            EV << "APP: Error: Got Self Message of unknown kind! Name: " << msg->getName() << endl;
+        break;
+    }
+    }
 }
 
-void PrivateSampleApp::handleLowerMsg(cMessage* msg) {
-    if (msg->getKind() == PrivateApplMessageKinds::WAVE_BEACON) {
-        onBeacon(dynamic_cast<WAVEBeacon*>(msg));
+void PrivateSampleApp::handleLowerMsg(cMessage *msg)
+{
+    if (msg->getKind() == PrivateApplMessageKinds::WAVE_BEACON)
+    {
+        onBeacon(dynamic_cast<WAVEBeacon *>(msg));
     }
-    else if (msg->getKind() == PrivateApplMessageKinds::WAVE_DATA) {
-        onData(dynamic_cast<WAVEBeacon*>(msg));
+    else if (msg->getKind() == PrivateApplMessageKinds::WAVE_DATA)
+    {
+        onData(dynamic_cast<WAVEBeacon *>(msg));
     }
-    else if (msg->getKind() == PrivLayerMessageKinds::MIX_ZONE_AD) {
-
+    else if (msg->getKind() == PrivLayerMessageKinds::MIX_ZONE_AD)
+    {
     }
-    else {
+    else
+    {
         EV << "unknown message (" << msg->getName() << ")  received\n";
     }
     delete msg;
 }
-void PrivateSampleApp::onBeacon(WAVEBeacon* wsm) {
+void PrivateSampleApp::onBeacon(WAVEBeacon *wsm)
+{
 }
 
-void PrivateSampleApp::onData(WAVEBeacon* wsm) {
-
+void PrivateSampleApp::onData(WAVEBeacon *wsm)
+{
 }
-WAVEBeacon*  PrivateSampleApp::prepareBeacon() {
+WAVEBeacon *PrivateSampleApp::prepareBeacon()
+{
 
-    WAVEBeacon* bsm = new WAVEBeacon("BSM");
+    WAVEBeacon *bsm = new WAVEBeacon("BSM");
     bsm->addBitLength(headerLength);
     bsm->addByteLength(dataLength);
 
@@ -96,17 +108,18 @@ WAVEBeacon*  PrivateSampleApp::prepareBeacon() {
     bsm->setRecipientAddress(0);
     bsm->setSerial(-1);
     bsm->setWsmData("");
-    bsm->setWsmLength(headerLength+dataLength);
+    bsm->setWsmLength(headerLength + dataLength);
 
     bsm->setTimestamp(simTime());
-    bsm->setSenderPsynm(0);     //TO be changed in the privacy layer
-    bsm->setSenderPos(traci->getCurrentPosition());
+    bsm->setSenderPsynm(0); //TO be changed in the privacy layer
+    bsm->setSenderPos(traci->getPositionAt(simTime()));
     bsm->setSenderAngle(traci->getAngleRad());
     bsm->setSenderVel(traci->getCurrentSpeed());
 
     return bsm;
 }
-void PrivateSampleApp::finish() {
+void PrivateSampleApp::finish()
+{
     BaseApplLayer::finish();
 
     cancelAndDelete(sendBeaconEvt);
