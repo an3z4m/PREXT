@@ -1,11 +1,27 @@
 //
-// Generated file, do not edit! Created by nedtool 5.0 from veins/modules/Prext/base/messages/MixZoneAd.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from veins/modules/Prext/base/messages/MixZoneAd.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
 #ifdef _MSC_VER
 #  pragma warning(disable:4101)
 #  pragma warning(disable:4065)
+#endif
+
+#if defined(__clang__)
+#  pragma clang diagnostic ignored "-Wshadow"
+#  pragma clang diagnostic ignored "-Wconversion"
+#  pragma clang diagnostic ignored "-Wunused-parameter"
+#  pragma clang diagnostic ignored "-Wc++98-compat"
+#  pragma clang diagnostic ignored "-Wunreachable-code-break"
+#  pragma clang diagnostic ignored "-Wold-style-cast"
+#elif defined(__GNUC__)
+#  pragma GCC diagnostic ignored "-Wshadow"
+#  pragma GCC diagnostic ignored "-Wconversion"
+#  pragma GCC diagnostic ignored "-Wunused-parameter"
+#  pragma GCC diagnostic ignored "-Wold-style-cast"
+#  pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
+#  pragma GCC diagnostic ignored "-Wfloat-conversion"
 #endif
 
 #include <iostream>
@@ -121,13 +137,13 @@ void doParsimArrayUnpacking(omnetpp::cCommBuffer *b, T *t, int n)
 template<typename T>
 void doParsimPacking(omnetpp::cCommBuffer *, const T& t)
 {
-    throw omnetpp::cRuntimeError("Parsim error: no doParsimPacking() function for type %s", omnetpp::opp_typename(typeid(t)));
+    throw omnetpp::cRuntimeError("Parsim error: No doParsimPacking() function for type %s", omnetpp::opp_typename(typeid(t)));
 }
 
 template<typename T>
 void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 {
-    throw omnetpp::cRuntimeError("Parsim error: no doParsimUnpacking() function for type %s", omnetpp::opp_typename(typeid(t)));
+    throw omnetpp::cRuntimeError("Parsim error: No doParsimUnpacking() function for type %s", omnetpp::opp_typename(typeid(t)));
 }
 
 }  // namespace omnetpp
@@ -161,9 +177,9 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
     return out;
 }
 
-Register_Class(MixZoneAd);
+Register_Class(MixZoneAd)
 
-MixZoneAd::MixZoneAd(const char *name, int kind) : ::WaveShortMessage(name,kind)
+MixZoneAd::MixZoneAd(const char *name, short kind) : ::BasicSafetyMessage(name,kind)
 {
     this->zoneType = 1;
     this->circularRange = 0;
@@ -171,7 +187,7 @@ MixZoneAd::MixZoneAd(const char *name, int kind) : ::WaveShortMessage(name,kind)
     this->zonePolygon = 0;
 }
 
-MixZoneAd::MixZoneAd(const MixZoneAd& other) : ::WaveShortMessage(other)
+MixZoneAd::MixZoneAd(const MixZoneAd& other) : ::BasicSafetyMessage(other)
 {
     zonePolygon_arraysize = 0;
     this->zonePolygon = 0;
@@ -186,7 +202,7 @@ MixZoneAd::~MixZoneAd()
 MixZoneAd& MixZoneAd::operator=(const MixZoneAd& other)
 {
     if (this==&other) return *this;
-    ::WaveShortMessage::operator=(other);
+    ::BasicSafetyMessage::operator=(other);
     copy(other);
     return *this;
 }
@@ -204,7 +220,7 @@ void MixZoneAd::copy(const MixZoneAd& other)
 
 void MixZoneAd::parsimPack(omnetpp::cCommBuffer *b) const
 {
-    ::WaveShortMessage::parsimPack(b);
+    ::BasicSafetyMessage::parsimPack(b);
     doParsimPacking(b,this->zoneType);
     doParsimPacking(b,this->circularRange);
     b->pack(zonePolygon_arraysize);
@@ -213,7 +229,7 @@ void MixZoneAd::parsimPack(omnetpp::cCommBuffer *b) const
 
 void MixZoneAd::parsimUnpack(omnetpp::cCommBuffer *b)
 {
-    ::WaveShortMessage::parsimUnpack(b);
+    ::BasicSafetyMessage::parsimUnpack(b);
     doParsimUnpacking(b,this->zoneType);
     doParsimUnpacking(b,this->circularRange);
     delete [] this->zonePolygon;
@@ -294,6 +310,7 @@ class MixZoneAdDescriptor : public omnetpp::cClassDescriptor
     virtual const char *getFieldProperty(int field, const char *propertyname) const override;
     virtual int getFieldArraySize(void *object, int field) const override;
 
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
     virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
     virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
 
@@ -301,9 +318,9 @@ class MixZoneAdDescriptor : public omnetpp::cClassDescriptor
     virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
 };
 
-Register_ClassDescriptor(MixZoneAdDescriptor);
+Register_ClassDescriptor(MixZoneAdDescriptor)
 
-MixZoneAdDescriptor::MixZoneAdDescriptor() : omnetpp::cClassDescriptor("MixZoneAd", "WaveShortMessage")
+MixZoneAdDescriptor::MixZoneAdDescriptor() : omnetpp::cClassDescriptor("MixZoneAd", "BasicSafetyMessage")
 {
     propertynames = nullptr;
 }
@@ -437,6 +454,20 @@ int MixZoneAdDescriptor::getFieldArraySize(void *object, int field) const
     switch (field) {
         case 2: return pp->getZonePolygonArraySize();
         default: return 0;
+    }
+}
+
+const char *MixZoneAdDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
     }
 }
 
