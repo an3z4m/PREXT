@@ -30,20 +30,20 @@
 
 
 // cplusplus {{
-#include <veins/modules/messages/DemoSafetyMessage_m.h>
+#include "BasicSafetyMessage_m.h"
 #include <veins/base/utils/Coord.h>
 #include <vector>
-using namespace std;
+//using namespace std;
 struct Convex
 {
-    vector<Coord> points;
+    std::vector<veins::Coord> points;
 };
 // }}
 
 /**
- * Class generated from <tt>veins/modules/Prext/base/messages/MixZoneAd.msg:36</tt> by nedtool.
+ * Class generated from <tt>veins/modules/Prext/base/messages/MixZoneAd.msg:38</tt> by nedtool.
  * <pre>
- * message MixZoneAd extends DemoSafetyMessage
+ * message MixZoneAd extends BasicSafetyMessage
  * {
  *     int zoneType = 1;
  *     int circularRange = 0;
@@ -51,7 +51,7 @@ struct Convex
  * }
  * </pre>
  */
-class VEINS_API MixZoneAd : public ::DemoSafetyMessage
+class VEINS_API MixZoneAd : public ::BasicSafetyMessage
 {
   protected:
     int zoneType;

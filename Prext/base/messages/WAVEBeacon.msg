@@ -17,18 +17,21 @@
 
 cplusplus {{
 #include <veins/base/utils/Coord.h>
-#include <veins/modules/messages/DemoSafetyMessage_m.h>
+#include "BasicSafetyMessage_m.h"
 }}
 
-class noncobject Coord;
-message DemoSafetyMessage;
+//namespace veins;
+
+
+class noncobject veins::Coord;
+message BasicSafetyMessage;
 
 //
 // TODO generated message class
 //
-message WAVEBeacon extends DemoSafetyMessage {
+message WAVEBeacon extends BasicSafetyMessage {
     uint64_t senderPsynm;
-    Coord senderVel;
+    veins::Coord senderVel;
     double senderAngle;
     bool CPN_readyFlag;        
     bool isEncrypted;	//message should be encrypted in mix-zone, thus eavesdropper cannot read it

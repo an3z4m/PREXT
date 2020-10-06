@@ -179,7 +179,7 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
 
 Register_Class(WAVEBeacon)
 
-WAVEBeacon::WAVEBeacon(const char *name, short kind) : ::DemoSafetyMessage(name,kind)
+WAVEBeacon::WAVEBeacon(const char *name, short kind) : ::BasicSafetyMessage(name,kind)
 {
     this->senderPsynm = 0;
     this->senderAngle = 0;
@@ -187,7 +187,7 @@ WAVEBeacon::WAVEBeacon(const char *name, short kind) : ::DemoSafetyMessage(name,
     this->isEncrypted = false;
 }
 
-WAVEBeacon::WAVEBeacon(const WAVEBeacon& other) : ::DemoSafetyMessage(other)
+WAVEBeacon::WAVEBeacon(const WAVEBeacon& other) : ::BasicSafetyMessage(other)
 {
     copy(other);
 }
@@ -199,7 +199,7 @@ WAVEBeacon::~WAVEBeacon()
 WAVEBeacon& WAVEBeacon::operator=(const WAVEBeacon& other)
 {
     if (this==&other) return *this;
-    ::DemoSafetyMessage::operator=(other);
+    ::BasicSafetyMessage::operator=(other);
     copy(other);
     return *this;
 }
@@ -215,7 +215,7 @@ void WAVEBeacon::copy(const WAVEBeacon& other)
 
 void WAVEBeacon::parsimPack(omnetpp::cCommBuffer *b) const
 {
-    ::DemoSafetyMessage::parsimPack(b);
+    ::BasicSafetyMessage::parsimPack(b);
     doParsimPacking(b,this->senderPsynm);
     doParsimPacking(b,this->senderVel);
     doParsimPacking(b,this->senderAngle);
@@ -225,7 +225,7 @@ void WAVEBeacon::parsimPack(omnetpp::cCommBuffer *b) const
 
 void WAVEBeacon::parsimUnpack(omnetpp::cCommBuffer *b)
 {
-    ::DemoSafetyMessage::parsimUnpack(b);
+    ::BasicSafetyMessage::parsimUnpack(b);
     doParsimUnpacking(b,this->senderPsynm);
     doParsimUnpacking(b,this->senderVel);
     doParsimUnpacking(b,this->senderAngle);
@@ -243,12 +243,12 @@ void WAVEBeacon::setSenderPsynm(uint64_t senderPsynm)
     this->senderPsynm = senderPsynm;
 }
 
-Coord& WAVEBeacon::getSenderVel()
+veins::Coord& WAVEBeacon::getSenderVel()
 {
     return this->senderVel;
 }
 
-void WAVEBeacon::setSenderVel(const Coord& senderVel)
+void WAVEBeacon::setSenderVel(const veins::Coord& senderVel)
 {
     this->senderVel = senderVel;
 }
@@ -313,7 +313,7 @@ class WAVEBeaconDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(WAVEBeaconDescriptor)
 
-WAVEBeaconDescriptor::WAVEBeaconDescriptor() : omnetpp::cClassDescriptor("WAVEBeacon", "DemoSafetyMessage")
+WAVEBeaconDescriptor::WAVEBeaconDescriptor() : omnetpp::cClassDescriptor("WAVEBeacon", "BasicSafetyMessage")
 {
     propertynames = nullptr;
 }
@@ -409,7 +409,7 @@ const char *WAVEBeaconDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "uint64_t",
-        "Coord",
+        "veins::Coord",
         "double",
         "bool",
         "bool",
@@ -517,7 +517,7 @@ const char *WAVEBeaconDescriptor::getFieldStructName(int field) const
         field -= basedesc->getFieldCount();
     }
     switch (field) {
-        case 1: return omnetpp::opp_typename(typeid(Coord));
+        case 1: return omnetpp::opp_typename(typeid(veins::Coord));
         default: return nullptr;
     };
 }

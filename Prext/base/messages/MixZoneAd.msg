@@ -16,24 +16,26 @@
 // 
 
 cplusplus {{
-#include <veins/modules/messages/DemoSafetyMessage_m.h>
+#include "BasicSafetyMessage_m.h"
 #include <veins/base/utils/Coord.h>
 #include <vector>
-using namespace std;
+//using namespace std;
 struct Convex
 {
-    vector<Coord> points;
+    std::vector<veins::Coord> points;
 };
 }}
 
-message DemoSafetyMessage; 
+//namespace veins;
+
+message BasicSafetyMessage; 
 class noncobject Convex;
 
 //
 // TODO generated message class
 //
 
-message MixZoneAd extends DemoSafetyMessage {
+message MixZoneAd extends BasicSafetyMessage {
     int zoneType = 1;
 	int circularRange = 0;
 	Convex zonePolygon [];         

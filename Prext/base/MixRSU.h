@@ -24,6 +24,9 @@
 #include <veins/base/modules/BaseApplLayer.h>
 #include <veins/modules/Prext/base/messages/MixZoneAd_m.h>
 
+using namespace std;
+//namespace veins{
+
 
 
 /**
@@ -53,5 +56,5 @@ class MixRSU : public veins::BaseApplLayer {
         cMessage* sendAdvertiseEvt = 0;
         MixZoneAd* localAd = 0;
 };
-
+//} // namespace veins
 #endif

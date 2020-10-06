@@ -31,30 +31,30 @@
 
 // cplusplus {{
 #include <veins/base/utils/Coord.h>
-#include <veins/modules/messages/DemoSafetyMessage_m.h>
+#include "BasicSafetyMessage_m.h"
 // }}
 
 /**
- * Class generated from <tt>veins/modules/Prext/base/messages/WAVEBeacon.msg:29</tt> by nedtool.
+ * Class generated from <tt>veins/modules/Prext/base/messages/WAVEBeacon.msg:32</tt> by nedtool.
  * <pre>
  * //
  * // TODO generated message class
  * //
- * message WAVEBeacon extends DemoSafetyMessage
+ * message WAVEBeacon extends BasicSafetyMessage
  * {
  *     uint64_t senderPsynm;
- *     Coord senderVel;
+ *     veins::Coord senderVel;
  *     double senderAngle;
  *     bool CPN_readyFlag;
  *     bool isEncrypted;	//message should be encrypted in mix-zone, thus eavesdropper cannot read it
  * }
  * </pre>
  */
-class VEINS_API WAVEBeacon : public ::DemoSafetyMessage
+class VEINS_API WAVEBeacon : public ::BasicSafetyMessage
 {
   protected:
     uint64_t senderPsynm;
-    Coord senderVel;
+    veins::Coord senderVel;
     double senderAngle;
     bool CPN_readyFlag;
     bool isEncrypted;
@@ -78,9 +78,9 @@ class VEINS_API WAVEBeacon : public ::DemoSafetyMessage
     // field getter/setter methods
     virtual uint64_t getSenderPsynm() const;
     virtual void setSenderPsynm(uint64_t senderPsynm);
-    virtual Coord& getSenderVel();
-    virtual const Coord& getSenderVel() const {return const_cast<WAVEBeacon*>(this)->getSenderVel();}
-    virtual void setSenderVel(const Coord& senderVel);
+    virtual veins::Coord& getSenderVel();
+    virtual const veins::Coord& getSenderVel() const {return const_cast<WAVEBeacon*>(this)->getSenderVel();}
+    virtual void setSenderVel(const veins::Coord& senderVel);
     virtual double getSenderAngle() const;
     virtual void setSenderAngle(double senderAngle);
     virtual bool getCPN_readyFlag() const;

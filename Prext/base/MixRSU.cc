@@ -22,7 +22,7 @@
 #include <veins/modules/Prext/base/PrivBase.h>
 #include <veins/modules/utility/Consts80211p.h>
 #include <veins/base/modules/BaseMobility.h>
-using namespace std;
+using namespace veins;
 
 Define_Module(MixRSU);
 MixRSU::~MixRSU() {
@@ -49,11 +49,11 @@ void MixRSU::initialize(int stage) {
         localAd = prepareAdvertise();
 	}
 }
-vector<Convex> MixRSU::parseConvexPolygon(string strPolygon)  {
+std::vector<Convex> MixRSU::parseConvexPolygon(string strPolygon)  {
 
     // TODO: parse convex polygons passed in the RSU parameter
 
-    vector<Convex> poly;
+    std::vector<Convex> poly;
     return poly;
 }
 
@@ -65,7 +65,7 @@ MixZoneAd* MixRSU::prepareAdvertise() {
     zad->addByteLength(dataLength);
 
     zad->setKind(PrivLayerMessageKinds::MIX_ZONE_AD);
-    zad->setChannelNumber(178);//Channels::CCH);
+    zad->setChannelNumber(static_cast<int>(Channel::cch));
     zad->setSenderAddress(myId);
     zad->setRecipientAddress(LAddress::L2BROADCAST());
     zad->setSerial(-1);
@@ -87,7 +87,7 @@ MixZoneAd* MixRSU::prepareAdvertise() {
         dispStr.parse(str.str().c_str());
     }
     else {
-        vector<Convex> poly = parseConvexPolygon(par("zoneConvexPolygons").stdstringValue());
+        std::vector<Convex> poly = parseConvexPolygon(par("zoneConvexPolygons").stdstringValue());
         zad->setZonePolygonArraySize(poly.size());
         for (unsigned int i = 0; i< poly.size(); i++)
             zad->setZonePolygon(i, poly[i]);

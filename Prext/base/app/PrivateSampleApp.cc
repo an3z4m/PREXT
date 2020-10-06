@@ -19,7 +19,9 @@
 #include "PrivateSampleApp.h"
 #include <veins/modules/Prext/base/PrivBase.h>
 
-using veins::TraCIMobilityAccess;
+using namespace veins;
+
+//using veins::TraCIMobilityAccess;
 
 Define_Module(PrivateSampleApp);
 PrivateSampleApp::~PrivateSampleApp()
@@ -103,7 +105,7 @@ WAVEBeacon *PrivateSampleApp::prepareBeacon()
     bsm->addByteLength(dataLength);
 
     bsm->setKind(PrivateApplMessageKinds::WAVE_BEACON);
-    bsm->setChannelNumber(178);//Channels::CCH);
+    bsm->setChannelNumber(static_cast<int>(Channel::cch));
     bsm->setSenderAddress(myId);
     bsm->setRecipientAddress(0);
     bsm->setSerial(-1);

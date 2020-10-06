@@ -28,6 +28,7 @@
 #include <veins/modules/mobility/traci/TraCIMobility.h>
 using namespace std;
 using veins::TraCIMobility;
+using veins::Coord;
 
 class BasePrivLayer : public veins::BaseLayer
 {
@@ -70,7 +71,7 @@ protected:
     int zoneType;
     Coord circularPos;
     int circularRange;
-    vector<Convex> polys;
+    std::vector<Convex> polys;
   };
 
   map<int, mixZoneInfo> mixZones;

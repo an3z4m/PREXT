@@ -11,12 +11,11 @@
 #include <veins/modules/Prext/base/messages/WAVEBeacon_m.h>
 #include <kalmanTrack.h>
 #include <ostream>
-using namespace std;
 
 //TODO: implement dumpWAVEBeacon as a member function of a derived class of WAVEBeacon
-inline void dumpWAVEBeacon(ostream & out, WAVEBeacon* bsm) {
+inline void dumpWAVEBeacon(std::ostream & out, WAVEBeacon* bsm) {
     out << bsm->getTimestamp().trunc(SimTimeUnit::SIMTIME_MS) << "\t"
-            //<< bsm->getSenderAddress() << "\t"
+            << bsm->getSenderAddress() << "\t"
             << bsm->getSenderPos().x << "\t"
             << bsm->getSenderVel().x << "\t"
             << bsm->getSenderPos().y << "\t"
@@ -41,5 +40,6 @@ enum PrivLayerMessageKinds {
             OTHER
 
 };
+
 
 #endif        

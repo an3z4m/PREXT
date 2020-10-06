@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.6 from veins/modules/Prext/base/messages/MixZoneAd.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from veins/modules/Prext/base/messages/BasicSafetyMessage.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -26,7 +26,7 @@
 
 #include <iostream>
 #include <sstream>
-#include "MixZoneAd_m.h"
+#include "BasicSafetyMessage_m.h"
 
 namespace omnetpp {
 
@@ -177,126 +177,117 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
     return out;
 }
 
-Register_Class(MixZoneAd)
+Register_Class(BasicSafetyMessage)
 
-MixZoneAd::MixZoneAd(const char *name, short kind) : ::BasicSafetyMessage(name,kind)
+BasicSafetyMessage::BasicSafetyMessage(const char *name, short kind) : ::veins::BaseFrame1609_4(name,kind)
 {
-    this->zoneType = 1;
-    this->circularRange = 0;
-    zonePolygon_arraysize = 0;
-    this->zonePolygon = 0;
+    this->senderAddress = -1;
+    this->serial = 0;
 }
 
-MixZoneAd::MixZoneAd(const MixZoneAd& other) : ::BasicSafetyMessage(other)
+BasicSafetyMessage::BasicSafetyMessage(const BasicSafetyMessage& other) : ::veins::BaseFrame1609_4(other)
 {
-    zonePolygon_arraysize = 0;
-    this->zonePolygon = 0;
     copy(other);
 }
 
-MixZoneAd::~MixZoneAd()
+BasicSafetyMessage::~BasicSafetyMessage()
 {
-    delete [] this->zonePolygon;
 }
 
-MixZoneAd& MixZoneAd::operator=(const MixZoneAd& other)
+BasicSafetyMessage& BasicSafetyMessage::operator=(const BasicSafetyMessage& other)
 {
     if (this==&other) return *this;
-    ::BasicSafetyMessage::operator=(other);
+    ::veins::BaseFrame1609_4::operator=(other);
     copy(other);
     return *this;
 }
 
-void MixZoneAd::copy(const MixZoneAd& other)
+void BasicSafetyMessage::copy(const BasicSafetyMessage& other)
 {
-    this->zoneType = other.zoneType;
-    this->circularRange = other.circularRange;
-    delete [] this->zonePolygon;
-    this->zonePolygon = (other.zonePolygon_arraysize==0) ? nullptr : new Convex[other.zonePolygon_arraysize];
-    zonePolygon_arraysize = other.zonePolygon_arraysize;
-    for (unsigned int i=0; i<zonePolygon_arraysize; i++)
-        this->zonePolygon[i] = other.zonePolygon[i];
+    this->demoData = other.demoData;
+    this->senderAddress = other.senderAddress;
+    this->serial = other.serial;
+    this->senderPos = other.senderPos;
+    this->senderSpeed = other.senderSpeed;
 }
 
-void MixZoneAd::parsimPack(omnetpp::cCommBuffer *b) const
+void BasicSafetyMessage::parsimPack(omnetpp::cCommBuffer *b) const
 {
-    ::BasicSafetyMessage::parsimPack(b);
-    doParsimPacking(b,this->zoneType);
-    doParsimPacking(b,this->circularRange);
-    b->pack(zonePolygon_arraysize);
-    doParsimArrayPacking(b,this->zonePolygon,zonePolygon_arraysize);
+    ::veins::BaseFrame1609_4::parsimPack(b);
+    doParsimPacking(b,this->demoData);
+    doParsimPacking(b,this->senderAddress);
+    doParsimPacking(b,this->serial);
+    doParsimPacking(b,this->senderPos);
+    doParsimPacking(b,this->senderSpeed);
 }
 
-void MixZoneAd::parsimUnpack(omnetpp::cCommBuffer *b)
+void BasicSafetyMessage::parsimUnpack(omnetpp::cCommBuffer *b)
 {
-    ::BasicSafetyMessage::parsimUnpack(b);
-    doParsimUnpacking(b,this->zoneType);
-    doParsimUnpacking(b,this->circularRange);
-    delete [] this->zonePolygon;
-    b->unpack(zonePolygon_arraysize);
-    if (zonePolygon_arraysize==0) {
-        this->zonePolygon = 0;
-    } else {
-        this->zonePolygon = new Convex[zonePolygon_arraysize];
-        doParsimArrayUnpacking(b,this->zonePolygon,zonePolygon_arraysize);
-    }
+    ::veins::BaseFrame1609_4::parsimUnpack(b);
+    doParsimUnpacking(b,this->demoData);
+    doParsimUnpacking(b,this->senderAddress);
+    doParsimUnpacking(b,this->serial);
+    doParsimUnpacking(b,this->senderPos);
+    doParsimUnpacking(b,this->senderSpeed);
 }
 
-int MixZoneAd::getZoneType() const
+const char * BasicSafetyMessage::getDemoData() const
 {
-    return this->zoneType;
+    return this->demoData.c_str();
 }
 
-void MixZoneAd::setZoneType(int zoneType)
+void BasicSafetyMessage::setDemoData(const char * demoData)
 {
-    this->zoneType = zoneType;
+    this->demoData = demoData;
 }
 
-int MixZoneAd::getCircularRange() const
+veins::LAddress::L2Type& BasicSafetyMessage::getSenderAddress()
 {
-    return this->circularRange;
+    return this->senderAddress;
 }
 
-void MixZoneAd::setCircularRange(int circularRange)
+void BasicSafetyMessage::setSenderAddress(const veins::LAddress::L2Type& senderAddress)
 {
-    this->circularRange = circularRange;
+    this->senderAddress = senderAddress;
 }
 
-void MixZoneAd::setZonePolygonArraySize(unsigned int size)
+int BasicSafetyMessage::getSerial() const
 {
-    Convex *zonePolygon2 = (size==0) ? nullptr : new Convex[size];
-    unsigned int sz = zonePolygon_arraysize < size ? zonePolygon_arraysize : size;
-    for (unsigned int i=0; i<sz; i++)
-        zonePolygon2[i] = this->zonePolygon[i];
-    zonePolygon_arraysize = size;
-    delete [] this->zonePolygon;
-    this->zonePolygon = zonePolygon2;
+    return this->serial;
 }
 
-unsigned int MixZoneAd::getZonePolygonArraySize() const
+void BasicSafetyMessage::setSerial(int serial)
 {
-    return zonePolygon_arraysize;
+    this->serial = serial;
 }
 
-Convex& MixZoneAd::getZonePolygon(unsigned int k)
+veins::Coord& BasicSafetyMessage::getSenderPos()
 {
-    if (k>=zonePolygon_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", zonePolygon_arraysize, k);
-    return this->zonePolygon[k];
+    return this->senderPos;
 }
 
-void MixZoneAd::setZonePolygon(unsigned int k, const Convex& zonePolygon)
+void BasicSafetyMessage::setSenderPos(const veins::Coord& senderPos)
 {
-    if (k>=zonePolygon_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", zonePolygon_arraysize, k);
-    this->zonePolygon[k] = zonePolygon;
+    this->senderPos = senderPos;
 }
 
-class MixZoneAdDescriptor : public omnetpp::cClassDescriptor
+veins::Coord& BasicSafetyMessage::getSenderSpeed()
+{
+    return this->senderSpeed;
+}
+
+void BasicSafetyMessage::setSenderSpeed(const veins::Coord& senderSpeed)
+{
+    this->senderSpeed = senderSpeed;
+}
+
+class BasicSafetyMessageDescriptor : public omnetpp::cClassDescriptor
 {
   private:
     mutable const char **propertynames;
   public:
-    MixZoneAdDescriptor();
-    virtual ~MixZoneAdDescriptor();
+    BasicSafetyMessageDescriptor();
+    virtual ~BasicSafetyMessageDescriptor();
 
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
@@ -318,24 +309,24 @@ class MixZoneAdDescriptor : public omnetpp::cClassDescriptor
     virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
 };
 
-Register_ClassDescriptor(MixZoneAdDescriptor)
+Register_ClassDescriptor(BasicSafetyMessageDescriptor)
 
-MixZoneAdDescriptor::MixZoneAdDescriptor() : omnetpp::cClassDescriptor("MixZoneAd", "BasicSafetyMessage")
+BasicSafetyMessageDescriptor::BasicSafetyMessageDescriptor() : omnetpp::cClassDescriptor("BasicSafetyMessage", "veins::BaseFrame1609_4")
 {
     propertynames = nullptr;
 }
 
-MixZoneAdDescriptor::~MixZoneAdDescriptor()
+BasicSafetyMessageDescriptor::~BasicSafetyMessageDescriptor()
 {
     delete[] propertynames;
 }
 
-bool MixZoneAdDescriptor::doesSupport(omnetpp::cObject *obj) const
+bool BasicSafetyMessageDescriptor::doesSupport(omnetpp::cObject *obj) const
 {
-    return dynamic_cast<MixZoneAd *>(obj)!=nullptr;
+    return dynamic_cast<BasicSafetyMessage *>(obj)!=nullptr;
 }
 
-const char **MixZoneAdDescriptor::getPropertyNames() const
+const char **BasicSafetyMessageDescriptor::getPropertyNames() const
 {
     if (!propertynames) {
         static const char *names[] = {  nullptr };
@@ -346,19 +337,19 @@ const char **MixZoneAdDescriptor::getPropertyNames() const
     return propertynames;
 }
 
-const char *MixZoneAdDescriptor::getProperty(const char *propertyname) const
+const char *BasicSafetyMessageDescriptor::getProperty(const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     return basedesc ? basedesc->getProperty(propertyname) : nullptr;
 }
 
-int MixZoneAdDescriptor::getFieldCount() const
+int BasicSafetyMessageDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 3+basedesc->getFieldCount() : 3;
+    return basedesc ? 5+basedesc->getFieldCount() : 5;
 }
 
-unsigned int MixZoneAdDescriptor::getFieldTypeFlags(int field) const
+unsigned int BasicSafetyMessageDescriptor::getFieldTypeFlags(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -368,13 +359,15 @@ unsigned int MixZoneAdDescriptor::getFieldTypeFlags(int field) const
     }
     static unsigned int fieldTypeFlags[] = {
         FD_ISEDITABLE,
+        FD_ISCOMPOUND,
         FD_ISEDITABLE,
-        FD_ISARRAY | FD_ISCOMPOUND,
+        FD_ISCOMPOUND,
+        FD_ISCOMPOUND,
     };
-    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<5) ? fieldTypeFlags[field] : 0;
 }
 
-const char *MixZoneAdDescriptor::getFieldName(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -383,24 +376,28 @@ const char *MixZoneAdDescriptor::getFieldName(int field) const
         field -= basedesc->getFieldCount();
     }
     static const char *fieldNames[] = {
-        "zoneType",
-        "circularRange",
-        "zonePolygon",
+        "demoData",
+        "senderAddress",
+        "serial",
+        "senderPos",
+        "senderSpeed",
     };
-    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<5) ? fieldNames[field] : nullptr;
 }
 
-int MixZoneAdDescriptor::findField(const char *fieldName) const
+int BasicSafetyMessageDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount() : 0;
-    if (fieldName[0]=='z' && strcmp(fieldName, "zoneType")==0) return base+0;
-    if (fieldName[0]=='c' && strcmp(fieldName, "circularRange")==0) return base+1;
-    if (fieldName[0]=='z' && strcmp(fieldName, "zonePolygon")==0) return base+2;
+    if (fieldName[0]=='d' && strcmp(fieldName, "demoData")==0) return base+0;
+    if (fieldName[0]=='s' && strcmp(fieldName, "senderAddress")==0) return base+1;
+    if (fieldName[0]=='s' && strcmp(fieldName, "serial")==0) return base+2;
+    if (fieldName[0]=='s' && strcmp(fieldName, "senderPos")==0) return base+3;
+    if (fieldName[0]=='s' && strcmp(fieldName, "senderSpeed")==0) return base+4;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
-const char *MixZoneAdDescriptor::getFieldTypeString(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldTypeString(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -409,14 +406,16 @@ const char *MixZoneAdDescriptor::getFieldTypeString(int field) const
         field -= basedesc->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
+        "string",
+        "veins::LAddress::L2Type",
         "int",
-        "int",
-        "Convex",
+        "veins::Coord",
+        "veins::Coord",
     };
-    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<5) ? fieldTypeStrings[field] : nullptr;
 }
 
-const char **MixZoneAdDescriptor::getFieldPropertyNames(int field) const
+const char **BasicSafetyMessageDescriptor::getFieldPropertyNames(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -429,7 +428,7 @@ const char **MixZoneAdDescriptor::getFieldPropertyNames(int field) const
     }
 }
 
-const char *MixZoneAdDescriptor::getFieldProperty(int field, const char *propertyname) const
+const char *BasicSafetyMessageDescriptor::getFieldProperty(int field, const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -442,7 +441,7 @@ const char *MixZoneAdDescriptor::getFieldProperty(int field, const char *propert
     }
 }
 
-int MixZoneAdDescriptor::getFieldArraySize(void *object, int field) const
+int BasicSafetyMessageDescriptor::getFieldArraySize(void *object, int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -450,14 +449,13 @@ int MixZoneAdDescriptor::getFieldArraySize(void *object, int field) const
             return basedesc->getFieldArraySize(object, field);
         field -= basedesc->getFieldCount();
     }
-    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
-        case 2: return pp->getZonePolygonArraySize();
         default: return 0;
     }
 }
 
-const char *MixZoneAdDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+const char *BasicSafetyMessageDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -465,13 +463,13 @@ const char *MixZoneAdDescriptor::getFieldDynamicTypeString(void *object, int fie
             return basedesc->getFieldDynamicTypeString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
         default: return nullptr;
     }
 }
 
-std::string MixZoneAdDescriptor::getFieldValueAsString(void *object, int field, int i) const
+std::string BasicSafetyMessageDescriptor::getFieldValueAsString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -479,16 +477,18 @@ std::string MixZoneAdDescriptor::getFieldValueAsString(void *object, int field, 
             return basedesc->getFieldValueAsString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
-        case 0: return long2string(pp->getZoneType());
-        case 1: return long2string(pp->getCircularRange());
-        case 2: {std::stringstream out; out << pp->getZonePolygon(i); return out.str();}
+        case 0: return oppstring2string(pp->getDemoData());
+        case 1: {std::stringstream out; out << pp->getSenderAddress(); return out.str();}
+        case 2: return long2string(pp->getSerial());
+        case 3: {std::stringstream out; out << pp->getSenderPos(); return out.str();}
+        case 4: {std::stringstream out; out << pp->getSenderSpeed(); return out.str();}
         default: return "";
     }
 }
 
-bool MixZoneAdDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+bool BasicSafetyMessageDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -496,15 +496,15 @@ bool MixZoneAdDescriptor::setFieldValueAsString(void *object, int field, int i, 
             return basedesc->setFieldValueAsString(object,field,i,value);
         field -= basedesc->getFieldCount();
     }
-    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
-        case 0: pp->setZoneType(string2long(value)); return true;
-        case 1: pp->setCircularRange(string2long(value)); return true;
+        case 0: pp->setDemoData((value)); return true;
+        case 2: pp->setSerial(string2long(value)); return true;
         default: return false;
     }
 }
 
-const char *MixZoneAdDescriptor::getFieldStructName(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldStructName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -513,12 +513,14 @@ const char *MixZoneAdDescriptor::getFieldStructName(int field) const
         field -= basedesc->getFieldCount();
     }
     switch (field) {
-        case 2: return omnetpp::opp_typename(typeid(Convex));
+        case 1: return omnetpp::opp_typename(typeid(veins::LAddress::L2Type));
+        case 3: return omnetpp::opp_typename(typeid(veins::Coord));
+        case 4: return omnetpp::opp_typename(typeid(veins::Coord));
         default: return nullptr;
     };
 }
 
-void *MixZoneAdDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+void *BasicSafetyMessageDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -526,9 +528,11 @@ void *MixZoneAdDescriptor::getFieldStructValuePointer(void *object, int field, i
             return basedesc->getFieldStructValuePointer(object, field, i);
         field -= basedesc->getFieldCount();
     }
-    MixZoneAd *pp = (MixZoneAd *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
-        case 2: return (void *)(&pp->getZonePolygon(i)); break;
+        case 1: return (void *)(&pp->getSenderAddress()); break;
+        case 3: return (void *)(&pp->getSenderPos()); break;
+        case 4: return (void *)(&pp->getSenderSpeed()); break;
         default: return nullptr;
     }
 }
