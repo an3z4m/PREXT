@@ -183,7 +183,7 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T, A>& vec)
 Register_Class(MixZoneAd)
 
     MixZoneAd::MixZoneAd(const char* name, short kind)
-    : veins::DemoSafetyMessage(name, kind)
+    : BasicSafetyMessage(name, kind)
 {
     this->zoneType = 1;
     this->circularRange = 0;
@@ -192,7 +192,7 @@ Register_Class(MixZoneAd)
 }
 
 MixZoneAd::MixZoneAd(const MixZoneAd& other)
-    : veins::DemoSafetyMessage(other)
+    : BasicSafetyMessage(other)
 {
     zonePolygon_arraysize = 0;
     this->zonePolygon = 0;
@@ -207,7 +207,7 @@ MixZoneAd::~MixZoneAd()
 MixZoneAd& MixZoneAd::operator=(const MixZoneAd& other)
 {
     if (this == &other) return *this;
-    veins::DemoSafetyMessage::operator=(other);
+    BasicSafetyMessage::operator=(other);
     copy(other);
     return *this;
 }
@@ -225,7 +225,7 @@ void MixZoneAd::copy(const MixZoneAd& other)
 
 void MixZoneAd::parsimPack(omnetpp::cCommBuffer* b) const
 {
-    veins::DemoSafetyMessage::parsimPack(b);
+    BasicSafetyMessage::parsimPack(b);
     doParsimPacking(b, this->zoneType);
     doParsimPacking(b, this->circularRange);
     b->pack(zonePolygon_arraysize);
@@ -234,7 +234,7 @@ void MixZoneAd::parsimPack(omnetpp::cCommBuffer* b) const
 
 void MixZoneAd::parsimUnpack(omnetpp::cCommBuffer* b)
 {
-    veins::DemoSafetyMessage::parsimUnpack(b);
+    BasicSafetyMessage::parsimUnpack(b);
     doParsimUnpacking(b, this->zoneType);
     doParsimUnpacking(b, this->circularRange);
     delete[] this->zonePolygon;

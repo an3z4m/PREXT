@@ -31,7 +31,7 @@
 
 // cplusplus {{
 #include <veins/base/utils/Coord.h>
-#include <veins/modules/messages/DemoSafetyMessage_m.h>
+#include "BasicSafetyMessage_m.h"
 // }}
 
 /**
@@ -40,7 +40,7 @@
  * //
  * // TODO generated message class
  * //
- * message WAVEBeacon extends DemoSafetyMessage
+ * message WAVEBeacon extends BasicSafetyMessage
  * {
  *     uint64_t senderPsynm;
  *     Coord senderVel;
@@ -52,7 +52,7 @@
  */
 using veins::Coord;
 
-class VEINS_API WAVEBeacon : public veins::DemoSafetyMessage
+class VEINS_API WAVEBeacon : public BasicSafetyMessage
 {
   protected:
     uint64_t senderPsynm;

@@ -183,7 +183,7 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T, A>& vec)
 Register_Class(WAVEBeacon)
 
     WAVEBeacon::WAVEBeacon(const char* name, short kind)
-    : veins::DemoSafetyMessage(name, kind)
+    : BasicSafetyMessage(name, kind)
 {
     this->senderPsynm = 0;
     this->senderAngle = 0;
@@ -192,7 +192,7 @@ Register_Class(WAVEBeacon)
 }
 
 WAVEBeacon::WAVEBeacon(const WAVEBeacon& other)
-    : veins::DemoSafetyMessage(other)
+    : BasicSafetyMessage(other)
 {
     copy(other);
 }
@@ -204,7 +204,7 @@ WAVEBeacon::~WAVEBeacon()
 WAVEBeacon& WAVEBeacon::operator=(const WAVEBeacon& other)
 {
     if (this == &other) return *this;
-    veins::DemoSafetyMessage::operator=(other);
+    BasicSafetyMessage::operator=(other);
     copy(other);
     return *this;
 }
@@ -220,7 +220,7 @@ void WAVEBeacon::copy(const WAVEBeacon& other)
 
 void WAVEBeacon::parsimPack(omnetpp::cCommBuffer* b) const
 {
-    veins::DemoSafetyMessage::parsimPack(b);
+    BasicSafetyMessage::parsimPack(b);
     doParsimPacking(b, this->senderPsynm);
     doParsimPacking(b, this->senderVel);
     doParsimPacking(b, this->senderAngle);
@@ -230,7 +230,7 @@ void WAVEBeacon::parsimPack(omnetpp::cCommBuffer* b) const
 
 void WAVEBeacon::parsimUnpack(omnetpp::cCommBuffer* b)
 {
-    veins::DemoSafetyMessage::parsimUnpack(b);
+    BasicSafetyMessage::parsimUnpack(b);
     doParsimUnpacking(b, this->senderPsynm);
     doParsimUnpacking(b, this->senderVel);
     doParsimUnpacking(b, this->senderAngle);
@@ -319,7 +319,7 @@ public:
 Register_ClassDescriptor(WAVEBeaconDescriptor)
 
     WAVEBeaconDescriptor::WAVEBeaconDescriptor()
-    : omnetpp::cClassDescriptor("WAVEBeacon", "DemoSafetyMessage")
+    : omnetpp::cClassDescriptor("WAVEBeacon", "BasicSafetyMessage")
 {
     propertynames = nullptr;
 }
