@@ -113,7 +113,7 @@ WAVEBeacon *PrivateSampleApp::prepareBeacon()
     bsm->setTimestamp(simTime());
     bsm->setSenderPsynm(0); //TO be changed in the privacy layer
     bsm->setSenderPos(traci->getPositionAt(simTime()));
-    bsm->setSenderAngle(traci->getAngleRad());
+    bsm->setSenderAngle(traci->getHeading().getRad());
     bsm->setSenderVel(traci->getCurrentSpeed());
 
     return bsm;
