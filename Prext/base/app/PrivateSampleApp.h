@@ -26,41 +26,41 @@
 #include <veins/modules/utility/Consts80211p.h>
 #include <veins/modules/Prext/base/messages/WAVEBeacon_m.h>
 #include "veins/base/connectionManager/ChannelAccess.h"
-#include <veins/modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h>
+#include <veins/modules/mac/ieee80211p/DemoBaseApplLayerToMac1609_4Interface.h>
 
-using Veins::TraCIMobility;
 using Veins::AnnotationManager;
+using Veins::TraCIMobility;
 
 /**
  * Small IVC Demo using 11p
  */
-class PrivateSampleApp : public BaseApplLayer {
-	public:
-        ~PrivateSampleApp();
-		virtual void initialize(int stage);
-		virtual void finish();
+class PrivateSampleApp : public BaseApplLayer
+{
+public:
+    ~PrivateSampleApp();
+    virtual void initialize(int stage);
+    virtual void finish();
 
+protected:
+    TraCIMobility *traci;
+    AnnotationManager *annotations;
 
-	protected:
-		TraCIMobility* traci;
-		AnnotationManager* annotations;
+    virtual void handleLowerMsg(cMessage *msg);
 
-        virtual void handleLowerMsg(cMessage* msg);
+    virtual void handleSelfMsg(cMessage *msg);
 
-        virtual void handleSelfMsg(cMessage* msg);
+    WAVEBeacon *prepareBeacon();
+    void onBeacon(WAVEBeacon *bcn);
+    void onData(WAVEBeacon *bcn);
 
-        WAVEBeacon* prepareBeacon();
-        void onBeacon(WAVEBeacon* bcn);
-        void onData(WAVEBeacon* bcn);
+    int headerLength;
+    int dataLength;
+    simtime_t individualOffset;
+    int myId;
 
-        int headerLength;
-        int dataLength;
-        simtime_t individualOffset;
-        int myId;
+    cMessage *sendBeaconEvt = 0;
 
-        cMessage* sendBeaconEvt = 0;
-
-        WaveAppToMac1609_4Interface* myMac;
+    DemoBaseApplLayerToMac1609_4Interface *myMac;
 };
 
 #endif
