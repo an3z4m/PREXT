@@ -65,15 +65,15 @@ MixZoneAd* MixRSU::prepareAdvertise() {
     zad->addByteLength(dataLength);
 
     zad->setKind(PrivLayerMessageKinds::MIX_ZONE_AD);
-    zad->setChannelNumber(Channels::CCH);
+    zad->setChannelNumber(178);//Channels::CCH);
     zad->setSenderAddress(myId);
     zad->setRecipientAddress(LAddress::L2BROADCAST());
     zad->setSerial(-1);
-    zad->setWsmData("");
-    zad->setWsmLength(headerLength+dataLength);
+    //zad->setWsmData("");
+    //zad->setWsmLength(headerLength+dataLength);
 
     zad->setTimestamp(simTime());
-    BaseMobility* mob = (BaseMobility*)this->getParentModule()->getSubmodule("mobility");
+    veins::BaseMobility* mob = (veins::BaseMobility*)this->getParentModule()->getSubmodule("mobility");
     Coord pos(mob->par("x").doubleValue(),mob->par("y").doubleValue(),mob->par("z").doubleValue());
     zad->setSenderPos(pos);
     zad->setZoneType(zoneType);

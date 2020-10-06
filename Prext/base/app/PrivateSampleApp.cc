@@ -103,18 +103,18 @@ WAVEBeacon *PrivateSampleApp::prepareBeacon()
     bsm->addByteLength(dataLength);
 
     bsm->setKind(PrivateApplMessageKinds::WAVE_BEACON);
-    bsm->setChannelNumber(Channels::CCH);
+    bsm->setChannelNumber(178);//Channels::CCH);
     bsm->setSenderAddress(myId);
     bsm->setRecipientAddress(0);
     bsm->setSerial(-1);
-    bsm->setWsmData("");
-    bsm->setWsmLength(headerLength + dataLength);
+    //bsm->setWsmData("");
+    //bsm->setWsmLength(headerLength + dataLength);
 
     bsm->setTimestamp(simTime());
     bsm->setSenderPsynm(0); //TO be changed in the privacy layer
     bsm->setSenderPos(traci->getPositionAt(simTime()));
     bsm->setSenderAngle(traci->getHeading().getRad());
-    bsm->setSenderVel(traci->getCurrentSpeed());
+    bsm->setSenderVel(traci->getHostSpeed());//traci->getCurrentSpeed());
 
     return bsm;
 }

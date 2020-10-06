@@ -33,7 +33,7 @@ void Eavesdropper::initialize(int stage) {
 	    nBcn = 0;
 	    encounteredPsynms.clear();
 
-	    tracker = FindModule<VehicleTracker*>::findSubModule(getParentModule()->getParentModule());
+	    tracker = veins::FindModule<VehicleTracker*>::findSubModule(getParentModule()->getParentModule());
 	    ASSERT(tracker);
 	    if (localDump) {
             char filename[50];

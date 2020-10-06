@@ -39,7 +39,7 @@ void SLOW::initialize(int stage)
 
 bool SLOW::isSLOW()
 {
-    if (traci->getCurrentSpeed().squareLength() < speedThresholdSqr)
+    if (traci->getHostSpeed().squareLength() < speedThresholdSqr)
     {
         if (slowPeriodStart == 0)
             slowPeriodStart = simTime();

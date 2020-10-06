@@ -60,7 +60,7 @@ protected:
 
     cMessage *sendBeaconEvt = 0;
 
-    DemoBaseApplLayerToMac1609_4Interface *myMac;
+    veins::DemoBaseApplLayerToMac1609_4Interface *myMac;
 };
 
 #endif
