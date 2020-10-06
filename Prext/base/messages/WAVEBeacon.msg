@@ -17,16 +17,16 @@
 
 cplusplus {{
 #include <veins/base/utils/Coord.h>
-#include <veins/modules/messages/BasicSafetyMessage_m.h>
+#include <veins/modules/messages/DemoSafetyMessage_m.h>
 }}
 
 class noncobject Coord;
-message BasicSafetyMessage;
+message DemoSafetyMessage;
 
 //
 // TODO generated message class
 //
-message WAVEBeacon extends BasicSafetyMessage {
+message WAVEBeacon extends DemoSafetyMessage {
     uint64_t senderPsynm;
     Coord senderVel;
     double senderAngle;

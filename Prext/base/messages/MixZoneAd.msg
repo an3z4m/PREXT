@@ -16,7 +16,7 @@
 // 
 
 cplusplus {{
-#include <veins/modules/messages/BasicSafetyMessage_m.h>
+#include <veins/modules/messages/DemoSafetyMessage_m.h>
 #include <veins/base/utils/Coord.h>
 #include <vector>
 using namespace std;
@@ -26,14 +26,14 @@ struct Convex
 };
 }}
 
-message BasicSafetyMessage; 
+message DemoSafetyMessage; 
 class noncobject Convex;
 
 //
 // TODO generated message class
 //
 
-message MixZoneAd extends BasicSafetyMessage {
+message MixZoneAd extends DemoSafetyMessage {
     int zoneType = 1;
 	int circularRange = 0;
 	Convex zonePolygon [];         
