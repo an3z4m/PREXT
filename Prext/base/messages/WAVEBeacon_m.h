@@ -2,6 +2,8 @@
 // Generated file, do not edit! Created by nedtool 5.6 from veins/modules/Prext/base/messages/WAVEBeacon.msg.
 //
 
+#include "veins/veins.h"
+
 #ifndef __WAVEBEACON_M_H
 #define __WAVEBEACON_M_H
 

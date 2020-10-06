@@ -2,6 +2,8 @@
 // Generated file, do not edit! Created by nedtool 5.6 from veins/modules/Prext/base/messages/MixZoneAd.msg.
 //
 
+#include "veins/veins.h"
+
 #ifndef __MIXZONEAD_M_H
 #define __MIXZONEAD_M_H
 

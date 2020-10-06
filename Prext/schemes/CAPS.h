@@ -15,6 +15,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
+#include "veins/veins.h"
+
 #ifndef __VEINS_CAPS_H_
 #define __VEINS_CAPS_H_
 

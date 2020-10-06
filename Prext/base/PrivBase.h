@@ -2,6 +2,8 @@
 // Copyright (C) 2016 Karim Emara <emara@in.tum.de>
 //
 
+#include "veins/veins.h"
+
 #ifndef PrivBase_H
 #define PrivBase_H
 
