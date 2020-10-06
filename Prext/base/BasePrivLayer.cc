@@ -20,10 +20,11 @@
 using veins::TraCIMobilityAccess;
 
 Define_Module(BasePrivLayer);
-
+/*
 #define privEV \
     if (debug) \
     EV
+*/
 
 void BasePrivLayer::initialize(int stage)
 {
@@ -97,12 +98,12 @@ bool BasePrivLayer::isInMixZone()
             {
                 if (mxzStartTime == 0)
                     mxzStartTime = simTime();
-                privEV << "Currently in a mix-zone at " << traci->getPositionAt(simTime()) << ", which located at " << it->second.circularPos << endl;
+                EV << "privEV:Currently in a mix-zone at " << traci->getPositionAt(simTime()) << ", which located at " << it->second.circularPos << endl;
                 return true;
             }
             else
             { // Car left the mix zone,
-                privEV << "Exit mix-zone at " << traci->getPositionAt(simTime()) << ", distance: " << it->second.circularPos.distance(traci->getPositionAt(simTime())) << endl;
+                EV << "privEV:Exit mix-zone at " << traci->getPositionAt(simTime()) << ", distance: " << it->second.circularPos.distance(traci->getPositionAt(simTime())) << endl;
                 // I am in a mix-zone already (mxzStartTime != 0) and I left this one.
                 // mark pseudonym to be changed, if I am not in another mix-zone
                 if (mxzStartTime != 0)
@@ -139,7 +140,7 @@ void BasePrivLayer::handleMixZoneAd(MixZoneAd *ad)
 
     if (mzi.zoneType == 1)
     { //circular zone
-        privEV << "Circular mix zone ad of range (" << mzi.circularRange << ")received. Distance: " << mzi.circularPos.distance(traci->getPositionAt(simTime())) << endl;
+        EV << "privEV:Circular mix zone ad of range (" << mzi.circularRange << ")received. Distance: " << mzi.circularPos.distance(traci->getPositionAt(simTime())) << endl;
         if (mzi.circularPos.distance(traci->getPositionAt(simTime())) <= mzi.circularRange)
         { // and I'm in this zone range already, then add it to the encountered zones
             if (mixZones.find(mzi.address) == mixZones.end())
@@ -153,7 +154,7 @@ void BasePrivLayer::handleMixZoneAd(MixZoneAd *ad)
 
                 mixZones[mzi.address] = mzi; // add the mix-zone information
 
-                privEV << "Entered mix-zone at " << traci->getPositionAt(simTime()) << ", which located at " << mzi.circularPos << endl;
+                EV << "privEV:Entered mix-zone at " << traci->getPositionAt(simTime()) << ", which located at " << mzi.circularPos << endl;
             }
         }
     }
